@@ -32,8 +32,8 @@ Setiap service terdapat file konfigurasi (`.env`) yang dapat disesuaikan dengan 
 
 ```json
 {
-    "email": "abc@def.com",
-    "password": "1234567"
+    "email": "surya.iksanudin@gmail.com",
+    "password": "admin"
 }
 ```
 
