@@ -1,0 +1,48 @@
+{
+    "version": 2,
+    "name": "Api Gateway",
+    "port": 2727,
+    "cache_ttl": "27s",
+    "timeout": "127s",
+    "plugin": {
+        "pattern": ".so",
+        "folder": "/etc/krakend/plugins/"
+    },
+    "extra_config": {
+        "github_com/devopsfaith/krakend-gologging": {
+            "level":  "ERROR",
+            "prefix": "[KRAKEND]",
+            "syslog": false,
+            "stdout": true
+        },
+        "github_com/devopsfaith/krakend-cors": {
+            "allow_origins": [ "*" ],
+            "allow_methods": [ "POST", "GET", "PATCH", "DELETE", "PUT" ],
+            "allow_headers": [ "Origin", "Authorization", "Content-Type" ],
+            "expose_headers": [ "Content-Length" ],
+            "max_age": "12h"
+        },
+        "github_com/devopsfaith/krakend/transport/http/server/handler": {
+            "name": "authenticator",
+            "services": {
+                "main": {
+                    "validate_url": "${MAIN_AUTH_SERVICE}/validate",
+                    "login_path": "/api/login",
+                    "logout_path": "/api/login"
+                }
+            },
+            "method": "POST",
+            "header": {
+                "authorization": "Authorization",
+                "service_id": "Service-Id"
+            },
+            "timeout": 5,
+            "cache_ttl": 5400,
+            "response_to_header": {
+                "id": "User-Id",
+                "email": "User-Email"
+            },
+            "whitelist": "-!MSuryaIksanudin!-"
+        }
+    }
+}

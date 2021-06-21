@@ -1,0 +1,32 @@
+[
+    {
+        "endpoint": "/api/login",
+        "method": "POST",
+        "headers_to_pass": ["Content-Type"],
+        "output_encoding": "no-op",
+        "backend": [
+            {
+                "host": [
+                    "${SECURITY_SERVICE}"
+                ],
+                "encoding": "no-op",
+                "url_pattern": "/login"
+            }
+        ]
+    },
+    {
+        "endpoint": "/api/seed",
+        "method": "POST",
+        "headers_to_pass": ["Content-Type"],
+        "output_encoding": "no-op",
+        "backend": [
+            {
+                "host": [
+                    "${SECURITY_SERVICE}"
+                ],
+                "encoding": "no-op",
+                "url_pattern": "/seed"
+            }
+        ]
+    }
+]

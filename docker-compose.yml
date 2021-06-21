@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+    gateway:
+        build:
+            context: .
+            dockerfile: ./gateway/Dockerfile
+        env_file:
+            - ./gateway/.env
+        ports:
+            - 2727:2727
+        links:
+            - security
+            - service1
+            - service2
+            - service3
+        depends_on:
+            - security
+            - service1
+            - service2
+            - service3
+    security:
+        build:
+            context: .
+            dockerfile: ./security/Dockerfile
+        env_file:
+            - ./security/.env
+    service1:
+        build:
+            context: .
+            dockerfile: ./service1/Dockerfile
+        env_file:
+            - ./service1/.env
+    service2:
+        build:
+            context: .
+            dockerfile: ./service2/Dockerfile
+        env_file:
+            - ./service2/.env
+    service3:
+        build:
+            context: .
+            dockerfile: ./service3/Dockerfile
+        env_file:
+            - ./service3/.env
