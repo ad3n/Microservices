@@ -2,7 +2,7 @@
     {
         "endpoint": "/api/login",
         "method": "POST",
-        "headers_to_pass": ["Content-Type"],
+        "headers_to_pass": ["Content-Type", "Accept", "Accept-Encoding"],
         "output_encoding": "no-op",
         "backend": [
             {
@@ -17,7 +17,7 @@
     {
         "endpoint": "/api/seed",
         "method": "POST",
-        "headers_to_pass": ["Content-Type"],
+        "headers_to_pass": ["Content-Type", "Accept", "Accept-Encoding"],
         "output_encoding": "no-op",
         "backend": [
             {

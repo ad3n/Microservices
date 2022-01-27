@@ -12,8 +12,9 @@ type (
 	}
 
 	Header struct {
-		Identity string `json:"authorization"`
-		Service  string `json:"service_id"`
+		Identity  string `json:"authorization"`
+		Service   string `json:"service_id"`
+		RequestID string `json:"request_id"`
 	}
 
 	Service struct {

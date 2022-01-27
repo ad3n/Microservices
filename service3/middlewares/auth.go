@@ -15,8 +15,8 @@ type User struct {
 func ValidateToken() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user := User{}
-		user.ID, _ = strconv.ParseInt(c.Request.Header.Get("User-Id"), 10, 64)
-		user.Email = c.Request.Header.Get("User-Email")
+		user.ID, _ = strconv.ParseInt(c.Request.Header.Get("X-User-ID"), 10, 64)
+		user.Email = c.Request.Header.Get("X-User-Email")
 
 		if user.ID <= 0 || user.Email == "" {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
@@ -25,6 +25,8 @@ func ValidateToken() gin.HandlerFunc {
 
 			return
 		}
+
+		c.Set("user", user)
 
 		c.Next()
 	}

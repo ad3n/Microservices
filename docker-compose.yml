@@ -9,11 +9,8 @@ services:
             - ./gateway/.env
         ports:
             - 2727:2727
-        links:
-            - security
-            - service1
-            - service2
-            - service3
+        networks:
+            - gw
         depends_on:
             - security
             - service1
@@ -25,21 +22,34 @@ services:
             dockerfile: ./security/Dockerfile
         env_file:
             - ./security/.env
+        networks:
+            - gw
     service1:
         build:
             context: .
             dockerfile: ./service1/Dockerfile
         env_file:
             - ./service1/.env
+        networks:
+            - gw
     service2:
         build:
             context: .
             dockerfile: ./service2/Dockerfile
         env_file:
             - ./service2/.env
+        networks:
+            - gw
+            - svc
     service3:
         build:
             context: .
             dockerfile: ./service3/Dockerfile
         env_file:
             - ./service3/.env
+        networks:
+            - gw
+            - svc
+networks:
+    gw: {}
+    svc: {}

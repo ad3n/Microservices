@@ -6,9 +6,9 @@ replace github.com/hashicorp/consul => github.com/hashicorp/consul v1.9.3
 
 replace github.com/hashicorp/vault => github.com/hashicorp/vault v1.6.2
 
-replace github.com/devopsfaith/krakend => github.com/crowdeco/krakend v1.2.6
+replace github.com/devopsfaith/krakend => github.com/ad3n/krakend v1.2.7
 
-replace github.com/devopsfaith/krakend-ratelimit => github.com/crowdeco/krakend-ratelimit v1.1.1
+replace github.com/devopsfaith/krakend-ratelimit => github.com/ad3n/krakend-ratelimit v1.1.1
 
 require (
 	github.com/PuerkitoBio/goquery v1.6.1 // indirect

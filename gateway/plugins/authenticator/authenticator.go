@@ -35,15 +35,21 @@ func (r registrable) RegisterHandlers(f func(
 			_, err := sha.Write([]byte(fmt.Sprintf("%s:%s", service, r.Header.Get(config.header.Identity))))
 			if err != nil {
 				fmt.Println(err.Error())
+
 				return
 			}
 
-			response := do(handler, r, w, request, cache, config, service, config.whitelist, fmt.Sprintf("%x", sha.Sum(nil)))
+			requestID := fmt.Sprintf("%x", sha.Sum(nil))
+
+			response := do(handler, r, w, request, cache, config, service, config.whitelist, requestID)
 			if response == nil {
 				return
 			}
 
-			handler.ServeHTTP(w, request.copy(r, config, response))
+			next := request.copy(r, config, response)
+			next.Header.Set(config.header.RequestID, requestID)
+
+			handler.ServeHTTP(w, next)
 		}), nil
 	})
 }

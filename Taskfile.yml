@@ -1,0 +1,19 @@
+version: '3'
+tasks:
+    build:
+        cmds:
+            - docker-compose -f docker-compose.yml build
+    run:
+        cmds:
+            - docker-compose -f docker-compose.yml up --remove-orphans
+    start:
+        cmds:
+            - docker-compose -f docker-compose.yml up -d --remove-orphans
+    stop:
+        cmds:
+            - docker-compose -f docker-compose.yml stop
+    restart:
+        cmds:
+            - task: stop
+            - task: start
+            

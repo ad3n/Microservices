@@ -24,7 +24,7 @@ Setiap service terdapat file konfigurasi (`.env`) yang dapat disesuaikan dengan 
 
 - Ubah file `.env` yang terdapat pada service security (`security/.env`), sesuaikan dengan konfigurasi database
 
-- Build dan jalankan `docker-compose`
+- Build dan jalankan `docker-compose up` atau jika menggunakan task cukup dengan `task start`
 
 - Seeding data melalui endpoint `POST http://localhost:2727/api/seed`
 
@@ -53,6 +53,14 @@ Maka akan mengembalikan response
 }
 ```
 
+- Panggil endpoint `GET http://localhost:2727/api/hey` dengan header `Authorization: Bearer [TOKEN]` untuk simulasi internal service call yaitu call service 2 dari service 3, maka akan mengembalikan response
+
+```json
+{
+	"message": "Service 3 called service 2 with response: Hello Service 2"
+}
+```
+
 ## Endpoint
 
 - Publik
@@ -78,6 +86,6 @@ GET    /api/hey
 
 ## Pengembangan Independen
 
-Setiap service dapat dikembangkan secara independen tanpa perlu terkoneksi dengan Api Gateway atau Arsitektur secara utuh. Untuk melakukan simulasi privat endpoint (Api) cukup dengan mengirimkan header `User-Id` dan `User-Email` pada request.
+Setiap service dapat dikembangkan secara independen tanpa perlu terkoneksi dengan Api Gateway atau Arsitektur secara utuh. Untuk melakukan simulasi privat endpoint (Api) cukup dengan mengirimkan header `X-User-ID` dan `X-User-Email` pada request.
 
-Ini karena Api Gateway dirancang untuk melakukan validasi token dan kemudian mengubah token menjadi header `User-Id` dan `User-Email` melalui endpoint `/api/validate` yang mengembalikan informasi user. Header (`User-Id` dan `User-Email`) kemudian diteruskan ke endpoint service (sesuai dengan mapping) sebagai tanda bahwa request telah divalidasi oleh Api Gateway
+Ini karena Api Gateway dirancang untuk melakukan validasi token dan kemudian mengubah token menjadi header `X-User-ID` dan `X-User-Email` melalui endpoint `/api/validate` yang mengembalikan informasi user. Header (`X-User-ID` dan `X-User-Email`) kemudian diteruskan ke endpoint service (sesuai dengan mapping) sebagai tanda bahwa request telah divalidasi oleh Api Gateway

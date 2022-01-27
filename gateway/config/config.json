@@ -34,13 +34,14 @@
             "method": "POST",
             "header": {
                 "authorization": "Authorization",
-                "service_id": "Service-Id"
+                "service_id": "X-Service-ID",
+                "request_id": "X-Request-ID"
             },
             "timeout": 5,
             "cache_ttl": 5400,
             "response_to_header": {
-                "id": "User-Id",
-                "email": "User-Email"
+                "id": "X-User-ID",
+                "email": "X-User-Email"
             },
             "whitelist": "-!MSuryaIksanudin!-"
         }
