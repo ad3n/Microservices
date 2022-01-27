@@ -39,15 +39,27 @@ func (r registrable) RegisterHandlers(f func(
 				return
 			}
 
-			requestID := fmt.Sprintf("%x", sha.Sum(nil))
+			cacheID := fmt.Sprintf("%x", sha.Sum(nil))
 
-			response := do(handler, r, w, request, cache, config, service, config.whitelist, requestID)
+			response := do(handler, r, w, request, cache, config, service, config.whitelist, cacheID)
 			if response == nil {
 				return
 			}
 
+			req := sha1.New()
+			_, err = req.Write([]byte(fmt.Sprintf("%s:%s", service, time.Now().Format(time.RFC3339))))
+			if err != nil {
+				fmt.Println(err.Error())
+
+				return
+			}
+
+			requestID := fmt.Sprintf("%x", req.Sum(nil))
+
 			next := request.copy(r, config, response)
 			next.Header.Set(config.header.RequestID, requestID)
+
+			w.Header().Add(config.header.RequestID, requestID)
 
 			handler.ServeHTTP(w, next)
 		}), nil
